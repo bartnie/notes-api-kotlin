@@ -1,0 +1,9 @@
+spring.application.name: Notes API
+server.port: 9000
+
+logging.level:
+  root: INFO
+  org.springframework.jdbc: ERROR
+  pl.bartek.notesapi: DEBUG
+
+management.endpoints.web.exposure.include: env,health,httptrace,metrics
