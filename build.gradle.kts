@@ -5,6 +5,13 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.5.31"
 	kotlin("plugin.spring") version "1.5.31"
+	id("org.flywaydb.flyway") version "8.0.1"
+}
+
+flyway {
+	url = "jdbc:mysql://localhost:3306/notes-api"
+	user = "root"
+	password = "root"
 }
 
 group = "pl.bartek.notesapi"
@@ -29,6 +36,9 @@ dependencies {
 	implementation("org.springframework:spring-webmvc")
 
 	implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
+	runtimeOnly("mysql:mysql-connector-java")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.flywaydb:flyway-core")
 
 	modules {
 		module("org.springframework.boot:spring-boot-starter-logging") {

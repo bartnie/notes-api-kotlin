@@ -7,3 +7,25 @@ logging.level:
   pl.bartek.notesapi: DEBUG
 
 management.endpoints.web.exposure.include: env,health,httptrace,metrics
+
+spring:
+  jpa:
+    generate-ddl: false                 # ddl autogenerating turned off
+    hibernate:
+      ddl-auto: validate        # validating if entities in java correspond to underlying DB scheme
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl  # mapping to field and table names
+  datasource:
+    url: jdbc:mysql://localhost:3306/notes-api?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    tomcat:
+      test-on-borrow: true              # db connection verification before getting it from the pool
+      validation-interval: 30000        # db connection validation interval
+      validation-query: SELECT 1        # query to validate db connection before getting it from the pool (must with test-on-borrow)
+      remove-abandoned: true            # abandoned db connection removal
+      remove-abandoned-timeout: 10000   # abandoned db connection timeout
+      log-abandoned: true               # diagnostic logs for abandoned db connection
+      max-age: 1800000                  # db connection max age in ms
+      log-validation-errors: true       # log errors with db connection validation
+      max-active: 50                    # max active db connections in pool
+      max-idle: 10                      # max idle db connections in pool
