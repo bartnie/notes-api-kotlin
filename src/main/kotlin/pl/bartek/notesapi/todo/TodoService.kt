@@ -1,21 +1,25 @@
 package pl.bartek.notesapi.todo
 
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class TodoService(private val todoRepository: TodoRepository) {
-    fun getTodos(): Iterable<Todo> = todoRepository.findAll()
+    fun getTodos(): Iterable<TodoDto> = todoRepository.findAll().map { TodoDto(it) }
 
-    fun insertTodo(todo: Todo): Todo = todoRepository.save(todo)
+    fun getScheduledLaterThan(date: Date) = todoRepository.findScheduledLaterThan(date.time).map { TodoDto(it) }
 
-    fun updateTodo(todoId: String, todo: Todo): Boolean {
+    fun insertTodo(todoDto: TodoDto): TodoDto = TodoDto(todoRepository.save(Todo(todoDto)))
+
+    fun updateTodo(todoId: String, todoDto: TodoDto): TodoDto {
         return todoRepository.findById(todoId).map {
-            it.title = todo.title
-            it.message = todo.message
-            it.schedule = todo.schedule
-            it.location = todo.location
+            it.title = todoDto.title
+            it.message = todoDto.message
+            it.schedule = todoDto.schedule
+            it.location = todoDto.location
             todoRepository.save(it)
-        }.isPresent
+            TodoDto(it)
+        }.orElseThrow()
     }
 
     fun deleteTodo(todoId: String): Boolean {

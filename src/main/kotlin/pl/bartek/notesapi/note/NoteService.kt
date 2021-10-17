@@ -1,20 +1,23 @@
 package pl.bartek.notesapi.note
 
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class NoteService(private val noteRepository: NoteRepository) {
-    fun getNotes(): Iterable<Note> = noteRepository.findAll()
+    fun getNotes(): Iterable<NoteDto> = noteRepository.findAll().map { NoteDto(it) }
 
-    fun insertNote(note: Note): Note = noteRepository.save(note)
+    fun insertNote(noteDto: NoteDto): NoteDto = NoteDto(noteRepository.save(Note(noteDto)))
 
-    fun updateNote(noteId: String, note: Note): Boolean {
+    fun updateNote(noteId: String, noteDto: NoteDto): NoteDto {
         return noteRepository.findById(noteId).map {
-            it.title = note.title
-            it.message = note.message
-            it.location = note.location
+            it.title = noteDto.title
+            it.message = noteDto.message
+            it.location = noteDto.location
+            it.modified = LocalDateTime.now()
             noteRepository.save(it)
-        }.isPresent
+            NoteDto(it)
+        }.orElseThrow()
     }
 
     fun deleteNote(noteId: String): Boolean {
