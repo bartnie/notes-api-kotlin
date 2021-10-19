@@ -1,0 +1,2 @@
+INSERT INTO User VALUES ('a@a.pl', '$2a$11$dsfQM5gCyE0Mdl4WQHwHieYnI5LdMfo9dy4iduTFXEQ0YuX8mc6n.', 'a1', 'a2', 'ADMIN', true, true, true, true, '2021-10-10 00:00:01', '2021-10-10 00:00:02', 'ADMIN');
+INSERT INTO User VALUES ('b@b.pl', '$2a$11$dsfQM5gCyE0Mdl4WQHwHieYnI5LdMfo9dy4iduTFXEQ0YuX8mc6n.', 'b1', 'b2', 'MEMBER', true, true, true, true, '2021-10-10 00:00:03', '2021-10-10 00:00:04', 'MEMBER');

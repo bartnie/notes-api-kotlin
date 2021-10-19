@@ -40,6 +40,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.hibernate.validator:hibernate-validator:7.0.1.Final")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 
 	modules {
 		module("org.springframework.boot:spring-boot-starter-logging") {
