@@ -7,6 +7,8 @@ import java.time.LocalDateTime
 class NoteService(private val noteRepository: NoteRepository) {
     fun getNotes(): Iterable<NoteDto> = noteRepository.findAll().map { NoteDto(it) }
 
+    fun getNoteByTitle(title: String) = noteRepository.findByTitle(title)
+
     fun insertNote(noteDto: NoteDto): NoteDto = NoteDto(noteRepository.save(Note(noteDto)))
 
     fun updateNote(noteId: String, noteDto: NoteDto): NoteDto {

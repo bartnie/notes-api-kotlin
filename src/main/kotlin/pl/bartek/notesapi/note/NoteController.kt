@@ -13,6 +13,9 @@ class NoteController(private val noteService: NoteService) {
     @GetMapping(produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
     fun getNotes(): Iterable<NoteDto> = noteService.getNotes()
 
+    @GetMapping("/{title}", produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
+    fun getNoteByTitle(@PathVariable title: String) = noteService.getNoteByTitle(title)
+
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun createNote(@RequestBody noteDto: NoteDto): NoteDto {
         log.info { "Incoming data $noteDto" }

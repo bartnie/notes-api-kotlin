@@ -25,7 +25,7 @@ class TodoController(private val todoService: TodoService) {
     @PutMapping(
         "/{todoId}",
         produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun updateTodo(@PathVariable todoId: String, todo: TodoDto): TodoDto {
+    fun updateTodo(@PathVariable todoId: String, @RequestBody todo: TodoDto): TodoDto {
         log.info { "Incoming id $todoId and data $todo" }
         return todoService.updateTodo(todoId, todo)
     }
